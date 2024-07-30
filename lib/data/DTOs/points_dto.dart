@@ -6,11 +6,11 @@ part 'points_dto.g.dart';
 @freezed
 class PointsDTO with _$PointsDTO {
   const factory PointsDTO({
-    @JsonKey(name: 'lat')required double lat,
-    @JsonKey(name: 'lng')required double lng,
+    @JsonKey(name: 'lat') required double lat,
+    @JsonKey(name: 'lng') required double lng,
   }) = _PointsDTO;
 
-   factory PointsDTO.fromJson(Map<String, Object?> json) =>
+  factory PointsDTO.fromJson(Map<String, Object?> json) =>
       _$PointsDTOFromJson(json);
 }
 

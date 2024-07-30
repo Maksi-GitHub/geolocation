@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -104,6 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _toggleTracking() async {
     if (_isTracking) {
       await FlutterForegroundTask.stopService();
+      _locationService.stopTracking();
       await _sendPoints();
       setState(() {
         _isTracking = false;
@@ -231,9 +233,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(width: 10),
                       if (localDistanceFilter == 1)
                         const Text('метр', style: TextStyle(fontSize: 18)),
-                       if (localDistanceFilter > 1 && localDistanceFilter < 5)
+                      if (localDistanceFilter > 1 && localDistanceFilter < 5)
                         const Text('метра', style: TextStyle(fontSize: 18)),
-                        if (localDistanceFilter >= 5)
+                      if (localDistanceFilter >= 5)
                         const Text('метров', style: TextStyle(fontSize: 18))
                     ],
                   ),
@@ -248,7 +250,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.of(context).pop();
                     _toggleTracking();
                   },
-                  child: const Text('OK', style: TextStyle(color: Colors.green),),
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(color: Colors.green),
+                  ),
                 ),
               ],
             );
